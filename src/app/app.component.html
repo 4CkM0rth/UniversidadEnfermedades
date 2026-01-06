@@ -13,6 +13,13 @@
             <a class="nav-link" routerLink="/gestionar-enfermedades">Gestionar enfermedades</a>
           </li>
       </ul>
+          <button
+      *ngIf="isLogged()"
+      class="btn btn-outline-danger my-2 my-sm-0"
+      (click)="logout()"
+    >
+      Cerrar sesión
+    </button>
     </div>
   </nav>
 

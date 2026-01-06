@@ -17,15 +17,19 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  login(): void {
-    this.authService.login(this.usuario, this.password)
-      .subscribe(
-        () => {
-          this.router.navigate(['/home']);
-        },
-        error => {
-          console.error('Error de login', error);
-        }
-      );
+  login() {
+    this.authService.login(this.usuario, this.password).subscribe({
+      next: res => {
+        localStorage.setItem('token', res.access_token);
+        console.log('TOKEN GUARDADO', res.access_token);
+
+              this.router.navigate(['/estudiantes']);
+
+      },
+      error: err => {
+        console.error('Error de login', err);
+      }
+    });
   }
+
 }
