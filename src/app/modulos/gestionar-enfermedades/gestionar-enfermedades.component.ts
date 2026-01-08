@@ -15,8 +15,7 @@ import { EstudianteService } from '../../services/estudiante.service';
 })
 export class GestionarEnfermedadesComponent implements OnInit {
 
-
-  public enfermedades: EnfermedadEstudiante[] = [];
+  public enfermedadesTabla: EnfermedadEstudiante[] = [];
   public idEstudiante: FormControl = new FormControl();
   public estudiantes: Estudiante[] = [];
 
@@ -24,59 +23,50 @@ export class GestionarEnfermedadesComponent implements OnInit {
     public dialog: MatDialog,
     private servicioEnfermedad: EnfermdadEstudianteService,
     private servicioEstudiante: EstudianteService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.listarTodos();
-    this.listarEstudiantes();
-    this.cargarEstudiantes();
-
+    this.servicioEstudiante.listarTodos().subscribe(
+      res => {
+        this.estudiantes = res;
+        this.listarTodos();
+      },
+      error => console.log("Error al cargar estudiantes")
+    );
   }
 
-   public modalGuardarEnfermedad(id: number) {
+  private listarTodos() {
+    this.servicioEnfermedad.listarTodos().subscribe(
+      res => {
+        this.enfermedadesTabla = res;
+      },
+      error => console.error(error)
+    );
+  }
+
+  public filtrar() {
+    this.servicioEnfermedad
+      .listarPorIdEstudiante(this.idEstudiante.value)
+      .subscribe(
+        res => {
+          this.enfermedadesTabla = res; // ✅ AQUÍ ESTÁ LA CLAVE
+        },
+        error => {
+          console.log("Ha ocurrido al filtrar la enfermedad por el estudiante");
+        }
+      );
+  }
+
+  public modalGuardarEnfermedad(id: number) {
     let dialogRef = this.dialog.open(GuardarEnfermedadesComponent, {
       height: '700px',
       width: '800px',
     });
+
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.listarTodos();
       }
     });
   }
-
-  private listarTodos() {
-    this.servicioEnfermedad.listarTodos().subscribe(res => {
-      this.enfermedades = res;
-    }, error => {
-      console.log("Ha ocurrido un error al listar las enfermedades");
-    });
-  }
-
-  private listarEstudiantes() {
-    this.servicioEstudiante.listarTodos().subscribe(res => {
-      this.estudiantes = res;
-    }, error => {
-      console.log("Ha ocurrido al listar los estudiantes");
-    });
-  }
-
-  private cargarEstudiantes() {
-    this.servicioEstudiante.listarTodos().subscribe(res =>{
-      this.estudiantes = res;
-    },error=>{
-      console.log("Ha ocurrido un error al listar los estudiantes");
-    })
-  }
-
-  public filtrar() {
-
-    this.servicioEnfermedad.listarPorIdEstudiante(this.idEstudiante.value).subscribe(res =>{
-      this.enfermedades = res;
-    },error =>{
-      console.log("Ha ocurrido un error en el filtro");
-    })
-
-  }
-
 }
