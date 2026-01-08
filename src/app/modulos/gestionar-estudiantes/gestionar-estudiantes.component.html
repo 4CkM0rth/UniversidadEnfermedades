@@ -1,0 +1,32 @@
+<button class="btn btn-success" (click)="modalNuevoEstudiante(0)">Nuevo Estudiante</button>
+
+<table class="table table-hover mt-4">
+    <thead>
+        <tr>
+            <th>Tipo identificacion</th>
+            <th>Numero identificacion</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha nacimiento</th>
+            <th>Tipo sangre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of estudiantes">
+            <td>{{item.tipoIdentificacion.nombre}}</td>
+            <td>{{item.numeroIdentificacion}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.apellido}}</td>
+            <td>{{item.fechaNacimiento}}</td>
+            <td>{{item.tipoSangre.nombre}}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary"
+                        (click)="modalNuevoEstudiante(item.id)">Editar</button>
+                    <button type="button" class="btn btn-danger" (click)="eliminar(item.id)">Eliminar</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
