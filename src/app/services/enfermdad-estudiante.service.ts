@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EnfermdadEstudianteService {
 
-  private path: string = environment.urlApi + "/enfermedad-estudiante";
+  private path: string = environment.urlApi + "/enfermedad";
 
   constructor(private http: HttpClient) { }
 

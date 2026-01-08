@@ -1,24 +1,31 @@
-<h2>Login</h2>
+<div class="d-flex vh-100 justify-content-center align-items-center">
+  <mat-card class="p-4 shadow" style="max-width: 400px; width: 100%;">
+    <mat-card-title class="text-center mb-4">
+      Iniciar Sesión
+    </mat-card-title>
 
-<form (ngSubmit)="login()">
-  <input
-    type="text"
-    placeholder="Usuario"
-    [(ngModel)]="usuario"
-    name="usuario"
-    required
-  />
+    <form (ngSubmit)="login()">
+      <!-- Usuario -->
+      <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-label>Usuario</mat-label>
+        <input matInput placeholder="Usuario" [(ngModel)]="usuario" name="usuario" required>
+      </mat-form-field>
 
-  <input
-    type="password"
-    placeholder="Contraseña"
-    [(ngModel)]="password"
-    name="password"
-    required
-  />
+      <!-- Contraseña -->
+      <mat-form-field appearance="outline" class="w-100 mb-4">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" placeholder="Contraseña" [(ngModel)]="password" name="password" required>
+      </mat-form-field>
 
-  <button type="submit">Ingresar</button>
+      <!-- Botón Ingresar -->
+      <button mat-raised-button color="accent" class="w-100 mb-2" type="submit">
+        Ingresar
+      </button>
 
-  <p *ngIf="error" style="color:red">{{ error }}</p>
-
-</form>
+      <!-- Mensaje de error -->
+      <p *ngIf="error" class="text-danger text-center mt-2">
+        {{ error }}
+      </p>
+    </form>
+  </mat-card>
+</div>

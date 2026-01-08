@@ -13,11 +13,12 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(usuario: string, password: string) {
-    return this.http.post<any>(`${this.path}/login`, {
-      usuario,
-      password
-    });
+    return this.http.post<any>(
+      'http://localhost:8282/api/auth/login',
+      { usuario, password }
+    );
   }
+
 
   register(usuario: string, password: string) {
     return this.http.post<any>(`${this.path}/register`, {
