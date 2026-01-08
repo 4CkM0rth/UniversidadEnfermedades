@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "UniversidadFront"
+    }
+  },
+  "defaultProject": "UniversidadFront",
+  "cli": {
+    "analytics": false
+  }
 }
